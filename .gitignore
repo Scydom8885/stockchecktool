@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment variables (IMPORTANT: Don't commit secrets!)
+.env
+.env.local
+.env.production
+
+# Build outputs
+dist/
+build/
+.vite/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Screenshots (optional - uncomment if you don't want to commit screenshots)
+# Screenshot*.png
+
+# Database (optional - comment these out if you want to commit the database)
+# server/src/database/users.json
+# server/src/database/submissions.json

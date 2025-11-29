@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "username": "worker1",
+    "password": "$2b$10$pDxrJVL8RUgw3cXVq4g.fuMZVCzXvd5ytua3R0pI9SSk90ba5GgNG",
+    "language": "mm",
+    "createdAt": "2025-11-29T05:24:26.882Z"
+  },
+  {
+    "id": 2,
+    "username": "worker2",
+    "password": "$2b$10$XN7MkjG7q4nQ7iQkpzWwDOvZ3NKp3cd416uuDccCxhf.xRz4f.CV.",
+    "language": "mm",
+    "createdAt": "2025-11-29T05:24:27.011Z"
+  },
+  {
+    "id": 3,
+    "username": "worker3",
+    "password": "$2b$10$DhEVOgkjpxKpoRCCTNzgLeOG654tmFgSv/MaQ4YwtxqW.BvGOU6oW",
+    "language": "mm",
+    "createdAt": "2025-11-29T05:24:27.132Z"
+  },
+  {
+    "id": 4,
+    "username": "admin",
+    "password": "$2b$10$lHYfhZZTmqs0UNDULSC3GOhNw1HQ.21FC1na9V3nbaN0VMCK2D4QS",
+    "language": "en",
+    "createdAt": "2025-11-29T05:24:27.223Z"
+  }
+]

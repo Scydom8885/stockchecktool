@@ -1,0 +1,24 @@
+{
+  "name": "stockcheck-server",
+  "version": "1.0.0",
+  "description": "Backend API for Stock Check Tool",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "seed": "node src/scripts/seedUsers.js",
+    "add-user": "node src/scripts/manageUsers.js add",
+    "remove-user": "node src/scripts/manageUsers.js remove",
+    "list-users": "node src/scripts/manageUsers.js list"
+  },
+  "keywords": ["stock", "inventory", "pwa"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0"
+  }
+}
