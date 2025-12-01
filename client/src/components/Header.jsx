@@ -1,7 +1,40 @@
+import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { faRightFromBracket, faDownload } from '@fortawesome/free-solid-svg-icons'
 
 const Header = ({ currentLang, onLanguageToggle, onLogout }) => {
+  const [deferredPrompt, setDeferredPrompt] = useState(null)
+  const [showInstallButton, setShowInstallButton] = useState(false)
+
+  useEffect(() => {
+    const handler = (e) => {
+      e.preventDefault()
+      setDeferredPrompt(e)
+      setShowInstallButton(true)
+    }
+
+    window.addEventListener('beforeinstallprompt', handler)
+
+    // Hide install button if app is already installed
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      setShowInstallButton(false)
+    }
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handler)
+    }
+  }, [])
+
+  const handleInstallClick = async () => {
+    if (!deferredPrompt) return
+    deferredPrompt.prompt()
+    const { outcome } = await deferredPrompt.userChoice
+    if (outcome === 'accepted') {
+      setShowInstallButton(false)
+    }
+    setDeferredPrompt(null)
+  }
+
   const languageFlags = {
     mm: '🇲🇲',
     en: 'EN',
@@ -26,6 +59,15 @@ const Header = ({ currentLang, onLanguageToggle, onLogout }) => {
         >
           {languageFlags[currentLang]}
         </button>
+        {showInstallButton && (
+          <button
+            onClick={handleInstallClick}
+            className="text-headerFont text-lg hover:opacity-80 transition-opacity"
+            title="Install App"
+          >
+            <FontAwesomeIcon icon={faDownload} />
+          </button>
+        )}
         <button
           onClick={onLogout}
           className="text-headerFont text-lg hover:opacity-80 transition-opacity"
