@@ -107,8 +107,8 @@ export const AppProvider = ({ children }) => {
     // Initial sync
     syncTeamSubmissions()
 
-    // Poll every 30 seconds
-    const interval = setInterval(syncTeamSubmissions, 30000)
+    // Poll every 10 seconds (faster updates!)
+    const interval = setInterval(syncTeamSubmissions, 10000)
 
     return () => clearInterval(interval)
   }, [user, submittedItems])
@@ -278,6 +278,47 @@ export const AppProvider = ({ children }) => {
     }
   }
 
+  // Manual refresh function for instant sync
+  const refreshSync = async () => {
+    try {
+      const teamSubmissions = await getTodaySubmissions()
+
+      // Extract all items from team submissions
+      const teamItems = []
+      teamSubmissions.forEach(submission => {
+        submission.items.forEach(item => {
+          if (!teamItems.find(i => i.id === item.id)) {
+            teamItems.push(item)
+          }
+        })
+      })
+
+      // Update submittedItems with team items
+      setSubmittedItems(prevSubmitted => {
+        const merged = [...prevSubmitted]
+        teamItems.forEach(item => {
+          if (!merged.find(i => i.id === item.id)) {
+            merged.push(item)
+          }
+        })
+        return merged
+      })
+
+      // Update selectedItems with team items
+      setSelectedItems(prevSelected => {
+        const merged = [...prevSelected]
+        teamItems.forEach(item => {
+          if (!merged.find(i => i.id === item.id)) {
+            merged.push(item)
+          }
+        })
+        return merged
+      })
+    } catch (error) {
+      console.error('Error refreshing sync:', error)
+    }
+  }
+
   const value = {
     user,
     currentLang,
@@ -293,6 +334,7 @@ export const AppProvider = ({ children }) => {
     removeSelectedItem,
     setNotes,
     submit,
+    refreshSync,
   }
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>

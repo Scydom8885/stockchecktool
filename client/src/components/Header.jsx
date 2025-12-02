@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightFromBracket, faDownload } from '@fortawesome/free-solid-svg-icons'
+import { faRightFromBracket, faDownload, faRotate } from '@fortawesome/free-solid-svg-icons'
 
-const Header = ({ currentLang, onLanguageToggle, onLogout }) => {
+const Header = ({ currentLang, onLanguageToggle, onLogout, onRefresh }) => {
   const [deferredPrompt, setDeferredPrompt] = useState(null)
   const [showInstallButton, setShowInstallButton] = useState(false)
 
@@ -96,6 +96,13 @@ const Header = ({ currentLang, onLanguageToggle, onLogout }) => {
             <FontAwesomeIcon icon={faDownload} />
           </button>
         )}
+        <button
+          onClick={onRefresh}
+          className="text-headerFont text-lg hover:opacity-80 transition-opacity"
+          title="Refresh team items"
+        >
+          <FontAwesomeIcon icon={faRotate} />
+        </button>
         <button
           onClick={onLogout}
           className="text-headerFont text-lg hover:opacity-80 transition-opacity"

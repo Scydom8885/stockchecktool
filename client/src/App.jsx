@@ -24,6 +24,7 @@ function App() {
     removeSelectedItem,
     setNotes,
     submit,
+    refreshSync,
   } = useAppContext()
 
   // Get available items (items not yet selected)
@@ -54,6 +55,7 @@ function App() {
         currentLang={currentLang}
         onLanguageToggle={toggleLanguage}
         onLogout={logout}
+        onRefresh={refreshSync}
       />
 
       <Tabs
