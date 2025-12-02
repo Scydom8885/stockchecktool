@@ -1,4 +1,4 @@
-import { createSubmission, getUserSubmissionToday } from '../database/db.js'
+import { createSubmission, getUserSubmissionToday, getSubmissionsByDate } from '../database/db.js'
 
 // Helper to get current date in Malaysia timezone (YYYY-MM-DD format)
 const getCurrentDateMalaysia = () => {
@@ -85,6 +85,28 @@ export const checkTodaySubmission = async (req, res) => {
     }
   } catch (error) {
     console.error('Check submission error:', error)
+    res.status(500).json({
+      error: 'Internal server error'
+    })
+  }
+}
+
+// GET /api/submissions/today - Get all team submissions for today
+export const getTodaySubmissions = async (req, res) => {
+  try {
+    // Get current date in Malaysia timezone
+    const date = getCurrentDateMalaysia()
+
+    // Get all submissions for today
+    const submissions = await getSubmissionsByDate(date)
+
+    res.json({
+      success: true,
+      submissions,
+      date
+    })
+  } catch (error) {
+    console.error('Get today submissions error:', error)
     res.status(500).json({
       error: 'Internal server error'
     })

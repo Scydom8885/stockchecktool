@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { login as apiLogin, saveSubmission as apiSaveSubmission } from '../utils/api'
+import { login as apiLogin, saveSubmission as apiSaveSubmission, getTodaySubmissions } from '../utils/api'
 import { openWhatsApp } from '../utils/whatsapp'
 import { getCurrentDateMalaysia, isNewDay } from '../utils/dateUtils'
 import { saveSubmissionState, loadSubmissionState, getLastSubmitDate, clearSubmissionState } from '../utils/storage'
@@ -54,7 +54,7 @@ export const AppProvider = ({ children }) => {
   }, [selectedItems, submittedItems, notes, user])
 
   // Check for new day and load/reset state
-  const checkAndLoadState = () => {
+  const checkAndLoadState = async () => {
     const lastSubmitDate = getLastSubmitDate()
 
     // Check if it's a new day
@@ -72,6 +72,47 @@ export const AppProvider = ({ children }) => {
         setSubmittedItems(savedState.submittedItems || [])
         setNotes(savedState.notes || '')
       }
+    }
+
+    // Load team submissions from backend to sync across devices
+    try {
+      const teamSubmissions = await getTodaySubmissions()
+
+      // Extract all items from team submissions
+      const teamItems = []
+      teamSubmissions.forEach(submission => {
+        submission.items.forEach(item => {
+          // Only add if not already in teamItems
+          if (!teamItems.find(i => i.id === item.id)) {
+            teamItems.push(item)
+          }
+        })
+      })
+
+      // Merge with local submittedItems
+      setSubmittedItems(prevSubmitted => {
+        const merged = [...prevSubmitted]
+        teamItems.forEach(item => {
+          if (!merged.find(i => i.id === item.id)) {
+            merged.push(item)
+          }
+        })
+        return merged
+      })
+
+      // Also add team items to selectedItems so they appear in the list
+      setSelectedItems(prevSelected => {
+        const merged = [...prevSelected]
+        teamItems.forEach(item => {
+          if (!merged.find(i => i.id === item.id)) {
+            merged.push(item)
+          }
+        })
+        return merged
+      })
+    } catch (error) {
+      console.error('Error loading team submissions:', error)
+      // Continue with local state even if backend fails
     }
   }
 

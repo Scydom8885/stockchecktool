@@ -80,3 +80,12 @@ export const checkTodaySubmission = async (userId) => {
     submission: data.submission,
   }
 }
+
+/**
+ * Get all team submissions for today
+ * @returns {Promise<Array>} Array of all submissions for today
+ */
+export const getTodaySubmissions = async () => {
+  const data = await apiCall('/submissions/today')
+  return data.submissions
+}
