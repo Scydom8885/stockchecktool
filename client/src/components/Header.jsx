@@ -18,6 +18,10 @@ const Header = ({ currentLang, onLanguageToggle, onLogout }) => {
     // Hide install button if app is already installed
     if (window.matchMedia('(display-mode: standalone)').matches) {
       setShowInstallButton(false)
+    } else {
+      // TEMPORARY: Force show button for testing on all browsers
+      // This helps debug on browsers that might not fire beforeinstallprompt
+      setShowInstallButton(true)
     }
 
     return () => {
@@ -26,7 +30,11 @@ const Header = ({ currentLang, onLanguageToggle, onLogout }) => {
   }, [])
 
   const handleInstallClick = async () => {
-    if (!deferredPrompt) return
+    if (!deferredPrompt) {
+      // Fallback: Show instructions for manual installation
+      alert('To install this app:\n\n1. Tap the menu button (⋮) in your browser\n2. Select "Add to Home screen"\n3. Tap "Add" to install')
+      return
+    }
     deferredPrompt.prompt()
     const { outcome } = await deferredPrompt.userChoice
     if (outcome === 'accepted') {
