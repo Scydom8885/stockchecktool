@@ -7,7 +7,10 @@ const Header = ({ currentLang, onLanguageToggle, onLogout }) => {
   const [showInstallButton, setShowInstallButton] = useState(false)
 
   useEffect(() => {
+    console.log('🔍 Header: Setting up beforeinstallprompt listener')
+
     const handler = (e) => {
+      console.log('🎉 beforeinstallprompt EVENT FIRED!', e)
       e.preventDefault()
       setDeferredPrompt(e)
       setShowInstallButton(true)
@@ -17,12 +20,19 @@ const Header = ({ currentLang, onLanguageToggle, onLogout }) => {
 
     // Hide install button if app is already installed
     if (window.matchMedia('(display-mode: standalone)').matches) {
+      console.log('📱 App is already installed (standalone mode)')
       setShowInstallButton(false)
     } else {
+      console.log('⚠️ beforeinstallprompt not fired yet, showing button anyway')
       // TEMPORARY: Force show button for testing on all browsers
       // This helps debug on browsers that might not fire beforeinstallprompt
       setShowInstallButton(true)
     }
+
+    // Check after 5 seconds if event fired
+    setTimeout(() => {
+      console.log('⏰ 5 seconds passed. beforeinstallprompt fired?', deferredPrompt ? 'YES ✅' : 'NO ❌')
+    }, 5000)
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handler)
@@ -30,15 +40,25 @@ const Header = ({ currentLang, onLanguageToggle, onLogout }) => {
   }, [])
 
   const handleInstallClick = async () => {
+    console.log('🔘 Install button clicked! deferredPrompt:', deferredPrompt)
+
     if (!deferredPrompt) {
+      console.log('❌ No deferredPrompt - beforeinstallprompt never fired on this device/browser')
       // Fallback: Show instructions for manual installation
       alert('To install this app:\n\n1. Tap the menu button (⋮) in your browser\n2. Select "Add to Home screen"\n3. Tap "Add" to install')
       return
     }
+
+    console.log('✅ Calling deferredPrompt.prompt()')
     deferredPrompt.prompt()
     const { outcome } = await deferredPrompt.userChoice
+    console.log('📊 User choice:', outcome)
+
     if (outcome === 'accepted') {
+      console.log('✅ User accepted install!')
       setShowInstallButton(false)
+    } else {
+      console.log('❌ User dismissed install')
     }
     setDeferredPrompt(null)
   }
