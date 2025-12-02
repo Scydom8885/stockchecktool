@@ -265,27 +265,26 @@ users (
   - [] Test "Add to Home Screen" on iOS
 
 ### Phase 8: Backend Setup 🖥️
-- [ ] Create `server/` folder structure
-- [ ] Initialize Node.js project
-  - [ ] Run `npm init -y`
-  - [ ] Install dependencies (express, cors, sqlite3, bcrypt, dotenv)
-- [ ] Create `server.js` main file
-  - [ ] Set up Express app
-  - [ ] Configure CORS
-  - [ ] Set up middleware (body-parser, etc.)
-  - [ ] Define port
-- [ ] Create SQLite database
-  - [ ] Create `database/schema.sql`
-  - [ ] Define `users` table (id, username, password, language)
-  - [ ] Define `submissions` table (id, user_id, submission_date, items, notes)
-  - [ ] Create `database/db.js` connection file
-  - [ ] Initialize database on server start
-- [ ] Create CLI script for user management
-  - [ ] Create `scripts/manageUsers.js`
-  - [ ] Add command to add new user: `npm run add-user <username> <password> <language>`
-  - [ ] Add command to remove user: `npm run remove-user <username>`
-  - [ ] Add command to list all users: `npm run list-users`
-  - [ ] Update `package.json` with npm scripts
+- [x] Create `server/` folder structure
+- [x] Initialize Node.js project
+  - [x] Run `npm init -y`
+  - [x] Install dependencies (express, cors, bcrypt, dotenv)
+- [x] Create `server.js` main file
+  - [x] Set up Express app
+  - [x] Configure CORS
+  - [x] Set up middleware (body-parser, etc.)
+  - [x] Define port
+- [x] Create database
+  - [x] Define `users` table (id, username, password, language)
+  - [x] Define `submissions` table (id, user_id, submission_date, items, notes)
+  - [x] Create `database/db.js` connection file
+  - [x] Initialize database on server start
+- [x] Create CLI script for user management
+  - [x] Create `scripts/manageUsers.js`
+  - [x] Add command to add new user: `npm run add-user <username> <password> <language>`
+  - [x] Add command to remove user: `npm run remove-user <username>`
+  - [x] Add command to list all users: `npm run list-users`
+  - [x] Update `package.json` with npm scripts
 
 ### Phase 9: Backend API - Authentication 🔑
 - [x] Create authentication routes (`routes/auth.js`)
@@ -337,41 +336,54 @@ users (
   - [x] Verify message format
   - [x] Test Chinese translation
   - [x] Test on mobile device
-- [ ] Test daily reset
-  - [ ] Manually change system date
-  - [ ] Verify reset at midnight
-  - [ ] Test submission lock/unlock
+- [x] Test daily reset
+  - [x] Manually change system date
+  - [x] Verify reset at midnight
+  - [x] Test submission lock/unlock
 - [ ] Test PWA installation
   - [ ] Install on Android
   - [ ] Install on iOS
   - [ ] Test offline functionality
-- [ ] Test CLI user management
-  - [ ] Test add user command
-  - [ ] Test remove user command
-  - [ ] Test list users command
-- [ ] Test database operations
-  - [ ] View submission history
-  - [ ] Test data persistence
+- [x] Test CLI user management
+  - [x] Test add user command
+  - [x] Test remove user command
+  - [x] Test list users command
+- [x] Test database operations
+  - [x] View submission history
+  - [x] Test data persistence
 
 ### Phase 13: Deployment 🚀
-- [ ] Deploy Frontend to Vercel
-  - [ ] Create Vercel account
-  - [ ] Connect GitHub repository
-  - [ ] Configure build settings
-  - [ ] Set environment variables
-  - [ ] Deploy and get URL
-- [ ] Deploy Backend to Railway/Render
-  - [ ] Create Railway/Render account
-  - [ ] Create new project
-  - [ ] Connect GitHub repository
-  - [ ] Configure environment variables
-  - [ ] Deploy and get API URL
-- [ ] Update frontend API endpoint
-  - [ ] Point to production backend URL
-  - [ ] Test production deployment
-- [ ] Get custom domain (optional)
-  - [ ] Free subdomain from Vercel
-  - [ ] Configure DNS if needed
+- [x] Deploy Frontend to Vercel
+  - [x] Create Vercel account
+  - [x] Connect GitHub repository
+  - [x] Configure build settings
+  - [x] Set environment variables
+  - [x] Deploy and get URL
+- [x] Deploy Backend to Railway/Render
+  - [x] Create Render account
+  - [x] Create new web service
+  - [x] Connect GitHub repository
+  - [x] Configure environment variables (NODE_ENV, CLIENT_URL)
+  - [x] Deploy and get API URL (https://stockcheck-api.onrender.com)
+- [x] Update frontend API endpoint
+  - [x] Point to production backend URL
+  - [x] Test production deployment
+- [x] Get custom domain (optional)
+  - [x] Free subdomain from Vercel (https://client-sooty-gamma-16.vercel.app)
+  - [x] Configure DNS if needed
+- [x] Additional Features Added:
+  - [x] Team submission sync (prevents duplicate orders)
+  - [x] Real-time polling (10-second auto-sync)
+  - [x] Manual refresh button for instant sync
+  - [x] Update notification banner for PWA
+  - [x] PWA install button with fallback instructions
+  - [x] Network-first service worker strategy
+  - [x] Auto-deploy from GitHub to Render
+- [ ] **PENDING: Firebase Migration (Planned for Thursday)**
+  - [ ] Replace Render backend with Firebase Firestore
+  - [ ] Add Firebase Authentication
+  - [ ] Implement real-time WebSocket sync
+  - [ ] Test instant updates across devices
 
 ### Phase 14: User Images & Final Touches 🎨
 - [ ] Create `public/images/` folder
