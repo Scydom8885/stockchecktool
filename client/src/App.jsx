@@ -4,6 +4,7 @@ import Tabs from './components/Tabs'
 import ItemGrid from './components/ItemGrid'
 import SelectedItems from './components/SelectedItems'
 import LoginForm from './components/LoginForm'
+import UpdateNotification from './components/UpdateNotification'
 import { items } from './data/items'
 import './App.css'
 
@@ -48,6 +49,7 @@ function App() {
   // Main app
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <UpdateNotification />
       <Header
         currentLang={currentLang}
         onLanguageToggle={toggleLanguage}

@@ -1,5 +1,5 @@
 // Service Worker for Stock Check Tool PWA
-const CACHE_NAME = 'stock-check-v1'
+const CACHE_NAME = 'stock-check-v2'
 const urlsToCache = [
   '/',
   '/index.html',
@@ -17,6 +17,13 @@ self.addEventListener('install', (event) => {
         return cache.addAll(urlsToCache)
       })
   )
+})
+
+// Message event - handle SKIP_WAITING from client
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting()
+  }
 })
 
 // Fetch event - serve from cache when offline
