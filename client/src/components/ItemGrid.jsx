@@ -8,12 +8,12 @@ const ItemGrid = ({ items, activeTab, currentLang, onItemClick }) => {
   // Helper function to render item image (emoji or webp)
   const renderImage = (image) => {
     if (image.startsWith('/')) {
-      // It's a file path - render as img tag
+      // It's a file path - render as img tag (full cover)
       return (
         <img
           src={image}
           alt="item"
-          className="w-full h-full object-cover rounded-lg"
+          className="w-full h-full object-cover"
         />
       )
     } else {
@@ -34,7 +34,9 @@ const ItemGrid = ({ items, activeTab, currentLang, onItemClick }) => {
           <button
             key={item.id}
             onClick={() => onItemClick(item)}
-            className="aspect-square bg-white border-2 border-primary rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all flex flex-col items-center justify-center overflow-hidden p-2"
+            className={`aspect-square bg-white border-2 border-primary rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all overflow-hidden ${
+              item.image.startsWith('/') ? '' : 'flex items-center justify-center'
+            }`}
           >
             {renderImage(item.image)}
           </button>
