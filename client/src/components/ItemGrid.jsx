@@ -5,38 +5,41 @@ const ItemGrid = ({ items, activeTab, currentLang, onItemClick }) => {
     zh: '选择物品',
   }
 
+  // Helper function to render item image (emoji or webp)
+  const renderImage = (image) => {
+    if (image.startsWith('/')) {
+      // It's a file path - render as img tag
+      return (
+        <img
+          src={image}
+          alt="item"
+          className="w-full h-full object-cover rounded-lg"
+        />
+      )
+    } else {
+      // It's an emoji - render as text
+      return <span className="text-4xl">{image}</span>
+    }
+  }
+
   return (
     <div className="bg-white rounded-lg shadow-md p-4 mb-4">
       <h2 className="text-textDark font-semibold mb-4 text-lg">
         {headerText[currentLang]}
       </h2>
 
-      {/* Grid for images (2 rows x 4 columns) or Pills for Others */}
-      {activeTab !== 'others' ? (
-        <div className="grid grid-cols-4 gap-3">
-          {items.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => onItemClick(item)}
-              className="aspect-square bg-white border-2 border-primary rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all flex flex-col items-center justify-center text-4xl"
-            >
-              <span>{item.image}</span>
-            </button>
-          ))}
-        </div>
-      ) : (
-        <div className="flex flex-wrap gap-3">
-          {items.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => onItemClick(item)}
-              className="px-6 py-3 bg-white border-2 border-primary rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all text-textDark font-medium"
-            >
-              {item.name[currentLang]}
-            </button>
-          ))}
-        </div>
-      )}
+      {/* Grid for all items (now includes Others with images) */}
+      <div className="grid grid-cols-4 gap-3">
+        {items.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => onItemClick(item)}
+            className="aspect-square bg-white border-2 border-primary rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all flex flex-col items-center justify-center overflow-hidden p-2"
+          >
+            {renderImage(item.image)}
+          </button>
+        ))}
+      </div>
     </div>
   )
 }
