@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLock, faUnlock, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 const QuantitySection = ({ currentLang, userId, onQuantitySubmit }) => {
   const [braisedPork, setBraisedPork] = useState('')
@@ -16,43 +16,23 @@ const QuantitySection = ({ currentLang, userId, onQuantitySubmit }) => {
   const text = {
     title: {
       mm: 'ပမာဏစစ်ဆေးခြင်း',
-      en: 'QUANTITY CHECK',
+      en: 'UNIT CHECK',
       zh: '数量检查',
     },
     braisedPork: {
-      mm: 'ကြော်ထားသော ဝက်သား',
+      mm: 'ဝက်သား',
       en: 'Braised Pork',
       zh: '卤肉',
     },
     kongBak: {
-      mm: 'ကောင်းဘတ်',
+      mm: 'Kong Bak',
       en: 'Kong Bak',
       zh: '焢肉',
-    },
-    packets: {
-      mm: 'အထုပ်',
-      en: 'packets',
-      zh: '包',
     },
     submit: {
       mm: 'တင်သွင်းရန်',
       en: 'Submit',
       zh: '提交',
-    },
-    locked: {
-      mm: 'သော့ပိတ်ထားသည်',
-      en: 'Locked',
-      zh: '已锁定',
-    },
-    morningLocked: {
-      mm: 'မနက် - တင်သွင်းပြီး',
-      en: 'Morning - Submitted',
-      zh: '上午 - 已提交',
-    },
-    eveningLocked: {
-      mm: 'ညနေ - တင်သွင်းပြီး',
-      en: 'Evening - Submitted',
-      zh: '晚上 - 已提交',
     },
   }
 
@@ -144,41 +124,17 @@ const QuantitySection = ({ currentLang, userId, onQuantitySubmit }) => {
   const hasSubmitted = (currentPeriod === 'morning' && morningData) ||
                        (currentPeriod === 'evening' && eveningData)
 
-  // Determine lock message
-  const getLockMessage = () => {
-    if (currentPeriod === 'morning' && morningData) {
-      return text.morningLocked[currentLang]
-    }
-    if (currentPeriod === 'evening' && eveningData) {
-      return text.eveningLocked[currentLang]
-    }
-    return text.locked[currentLang]
-  }
-
   return (
     <div className="bg-white rounded-lg shadow-md p-4 mb-4">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-textDark font-semibold text-lg">
-          {text.title[currentLang]}
-        </h2>
-        {(isLocked || hasSubmitted) && (
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <FontAwesomeIcon icon={faLock} />
-            <span>{getLockMessage()}</span>
-          </div>
-        )}
-        {!isLocked && !hasSubmitted && (
-          <div className="flex items-center gap-2 text-sm text-green-600">
-            <FontAwesomeIcon icon={faUnlock} />
-          </div>
-        )}
-      </div>
+      <h2 className="text-textDark font-semibold text-lg mb-4">
+        {text.title[currentLang]}
+      </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Braised Pork Input */}
-        <div>
-          <label className="block text-textDark font-medium mb-2">
-            {text.braisedPork[currentLang]} ({text.packets[currentLang]})
+        <div className="flex items-center gap-3">
+          <label className="text-textDark font-medium whitespace-nowrap">
+            {text.braisedPork[currentLang]}:
           </label>
           <input
             type="number"
@@ -186,15 +142,15 @@ const QuantitySection = ({ currentLang, userId, onQuantitySubmit }) => {
             value={braisedPork}
             onChange={(e) => setBraisedPork(e.target.value)}
             disabled={isLocked || hasSubmitted || loading}
-            className="w-full border-2 border-gray-300 rounded-lg p-3 text-textDark focus:border-primary focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="flex-1 border-2 border-gray-300 rounded-lg p-3 text-textDark focus:border-primary focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
             placeholder="0"
           />
         </div>
 
         {/* Kong Bak Input */}
-        <div>
-          <label className="block text-textDark font-medium mb-2">
-            {text.kongBak[currentLang]} ({text.packets[currentLang]})
+        <div className="flex items-center gap-3">
+          <label className="text-textDark font-medium whitespace-nowrap">
+            {text.kongBak[currentLang]}:
           </label>
           <input
             type="number"
@@ -202,7 +158,7 @@ const QuantitySection = ({ currentLang, userId, onQuantitySubmit }) => {
             value={kongBak}
             onChange={(e) => setKongBak(e.target.value)}
             disabled={isLocked || hasSubmitted || loading}
-            className="w-full border-2 border-gray-300 rounded-lg p-3 text-textDark focus:border-primary focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="flex-1 border-2 border-gray-300 rounded-lg p-3 text-textDark focus:border-primary focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
             placeholder="0"
           />
         </div>

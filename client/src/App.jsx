@@ -107,12 +107,6 @@ function App() {
           onItemClick={handleItemClick}
         />
 
-        <QuantitySection
-          currentLang={currentLang}
-          userId={user.id}
-          onQuantitySubmit={handleQuantitySubmit}
-        />
-
         <SelectedItems
           selectedItems={selectedItems}
           submittedItems={submittedItems}
@@ -121,6 +115,12 @@ function App() {
           onNotesChange={setNotes}
           onDeleteItem={handleDeleteItem}
           onSubmit={submit}
+        />
+
+        <QuantitySection
+          currentLang={currentLang}
+          userId={user.id}
+          onQuantitySubmit={handleQuantitySubmit}
         />
       </div>
     </div>
