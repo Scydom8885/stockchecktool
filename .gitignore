@@ -34,3 +34,5 @@ desktop.ini
 # Database (optional - comment these out if you want to commit the database)
 # server/src/database/users.json
 # server/src/database/submissions.json
+
+.vercel

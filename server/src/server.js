@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import authRoutes from './routes/auth.js'
 import submissionRoutes from './routes/submissions.js'
+import quantityRoutes from './routes/quantities.js'
 
 // Load environment variables
 dotenv.config()
@@ -20,6 +21,7 @@ app.use(express.json())
 // Routes
 app.use('/api/auth', authRoutes)
 app.use('/api/submissions', submissionRoutes)
+app.use('/api/quantities', quantityRoutes)
 
 // Health check
 app.get('/api/health', (req, res) => {
@@ -28,6 +30,6 @@ app.get('/api/health', (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`=€ Server running on port ${PORT}`)
-  console.log(`=á API available at http://localhost:${PORT}/api`)
+  console.log(`=ï¿½ Server running on port ${PORT}`)
+  console.log(`=ï¿½ API available at http://localhost:${PORT}/api`)
 })

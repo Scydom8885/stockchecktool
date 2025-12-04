@@ -7,6 +7,7 @@ const __dirname = path.dirname(__filename)
 
 const USERS_FILE = path.join(__dirname, 'users.json')
 const SUBMISSIONS_FILE = path.join(__dirname, 'submissions.json')
+const QUANTITIES_FILE = path.join(__dirname, 'quantities.json')
 
 // Initialize database files if they don't exist
 export const initDatabase = async () => {
@@ -31,6 +32,17 @@ export const initDatabase = async () => {
       }
     } catch {
       await fs.writeFile(SUBMISSIONS_FILE, JSON.stringify([], null, 2))
+    }
+
+    // Check and initialize quantities.json
+    try {
+      await fs.access(QUANTITIES_FILE)
+      const content = await fs.readFile(QUANTITIES_FILE, 'utf-8')
+      if (!content || content.trim() === '') {
+        await fs.writeFile(QUANTITIES_FILE, JSON.stringify([], null, 2))
+      }
+    } catch {
+      await fs.writeFile(QUANTITIES_FILE, JSON.stringify([], null, 2))
     }
 
     console.log(' Database initialized')
@@ -123,6 +135,33 @@ export const createSubmission = async (submission) => {
   submissions.push(newSubmission)
   await writeData(SUBMISSIONS_FILE, submissions)
   return newSubmission
+}
+
+// Quantity operations
+export const getQuantities = async () => {
+  return await readData(QUANTITIES_FILE)
+}
+
+export const getTodayQuantities = async (date) => {
+  const quantities = await getQuantities()
+  return quantities.filter(q => q.date === date)
+}
+
+export const getQuantityByPeriod = async (date, period) => {
+  const quantities = await getQuantities()
+  return quantities.find(q => q.date === date && q.time_period === period)
+}
+
+export const createQuantity = async (quantity) => {
+  const quantities = await getQuantities()
+  const newQuantity = {
+    id: quantities.length > 0 ? Math.max(...quantities.map(q => q.id)) + 1 : 1,
+    ...quantity,
+    createdAt: new Date().toISOString()
+  }
+  quantities.push(newQuantity)
+  await writeData(QUANTITIES_FILE, quantities)
+  return newQuantity
 }
 
 // Initialize database on module load

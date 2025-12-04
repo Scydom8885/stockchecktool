@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { faSpinner, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 const LoginForm = ({ onLogin }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -60,13 +61,22 @@ const LoginForm = ({ onLogin }) => {
             <label className="block text-textDark font-medium mb-2">
               Password
             </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full border-2 border-gray-300 rounded-lg p-3 text-textDark focus:border-primary focus:outline-none"
-              placeholder="Enter your password"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full border-2 border-gray-300 rounded-lg p-3 pr-12 text-textDark focus:border-primary focus:outline-none"
+                placeholder="Enter your password"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              >
+                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+              </button>
+            </div>
           </div>
 
           {/* Error Message */}

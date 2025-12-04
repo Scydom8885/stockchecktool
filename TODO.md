@@ -386,15 +386,15 @@ users (
   - [ ] Test instant updates across devices
 
 ### Phase 14: User Images & Final Touches 🎨
-- [ ] Create `public/images/` folder
-- [ ] Get ingredient photos from user
-  - [ ] 8 photos for Main category
-  - [ ] 5 photos for Packaging category
-  - [ ] No images for Others (pills only)
-- [ ] Optimize images
-  - [ ] Resize to 300x300 pixels
-  - [ ] Compress to <100KB each
-  - [ ] Convert to WebP if needed
+- [x] Create `public/webp/` folder
+- [x] Get ingredient photos from user
+  - [x] 8 photos for Main category
+  - [x] 5 photos for Packaging category
+  - [x] 4 images for Others 
+- [x] Optimize images
+  - [x] Resize to 300x300 pixels
+  - [x] Compress to <100KB each
+  - [x] Convert to WebP if needed
 - [ ] Update `data/items.js` with image paths
 - [ ] Test image loading on all devices
 - [x] Create app icons (192x192, 512x512)

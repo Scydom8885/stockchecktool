@@ -63,6 +63,15 @@ For the top div , could we do 4 rows of 2 for images  ? Stock 's name is not nec
 
 ------------------
 
-1. I think I will go for minimal backend
-2. okay
-3. What are the  differences between 4 rows of 2 and 2 rows of 4 ? 
+1. The logging in needs time to login , could you make the loading to be animated while staff waiting time to login the page .
+2.  Our grid is 4 columns , right ? Could we make it to 3 columns so the grid box will look bigger and the image will become bigger to see . What do you think ?
+3. I think we can remove the install icon button but don't remove the functionality of promptbeforeinstall . The icon only appear when detected this app is not installed . Once installed , the icon should be disappear instantly . What do you think ?
+4. For the time polling , can set to 5 seconds or not ?
+5. For the refreshed button can set to automatic or not , so we don't need the refreshed button at all . Can make it automatically refreshed or not . What do you think ?
+6. I want to add a div section in between of "SELECT ITEMS" div section and " ITEMS TO RESTOCK" div section  , that is check stock quantity. This section is for them to key in  the morning and after dismiss so we can let staff to key in the quantity , easy for us to track the quantity of Braised Pork's packets and Kong Bak's packets .🔻 
+Braised Pork :
+Kong Bak :
+What do you think  ?
+7. If we want to deploy manually on git bash , what's the steps ?
+
+Let's discuss first , don't fix yet .

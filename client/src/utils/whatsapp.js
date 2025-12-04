@@ -116,3 +116,43 @@ export const openWhatsApp = (username, selectedItems, notes) => {
   // 2. Owner will manually forward to brother/group
   // Total: 1 tap (simplest and most reliable!)
 }
+
+/**
+ * Generate WhatsApp message for quantity check in Chinese
+ * @param {string} username - Username of submitter
+ * @param {number} braisedPork - Quantity of braised pork
+ * @param {number} kongBak - Quantity of kong bak
+ * @param {string} period - Time period (morning/evening)
+ * @returns {string} - Formatted message in Chinese
+ */
+const generateQuantityMessageChinese = (username, braisedPork, kongBak, period) => {
+  const periodText = period === 'morning' ? '上午' : '晚上'
+
+  let message = `📦 *数量检查通知*\n\n`
+  message += `时段：${periodText}\n\n`
+  message += `卤肉：${braisedPork} 包\n`
+  message += `焢肉：${kongBak} 包\n`
+  message += `\n---\n提交人：${username}\n`
+  message += `发送时间：${new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Kuala_Lumpur' })}`
+
+  return message
+}
+
+/**
+ * Send quantity check to brother's WhatsApp (Chinese only)
+ * @param {string} username - Username of submitter
+ * @param {number} braisedPork - Quantity of braised pork
+ * @param {number} kongBak - Quantity of kong bak
+ * @param {string} period - Time period (morning/evening)
+ * @param {string} phoneNumber - Brother's phone number (012-8533050)
+ */
+export const sendQuantityWhatsApp = (username, braisedPork, kongBak, period, phoneNumber) => {
+  // Convert phone number to international format (60 + number without leading 0)
+  const internationalPhone = '60' + phoneNumber.replace(/^0/, '').replace(/-/g, '')
+
+  const message = generateQuantityMessageChinese(username, braisedPork, kongBak, period)
+  const encodedMessage = encodeURIComponent(message)
+  const whatsappLink = `${WHATSAPP_API_URL}?phone=${internationalPhone}&text=${encodedMessage}`
+
+  window.open(whatsappLink, '_blank')
+}
