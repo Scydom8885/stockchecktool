@@ -28,8 +28,8 @@ const ItemGrid = ({ items, activeTab, currentLang, onItemClick }) => {
         {headerText[currentLang]}
       </h2>
 
-      {/* Grid for all items (now includes Others with images) */}
-      <div className="grid grid-cols-4 gap-3">
+      {/* Grid for all items (now includes Others with images) - 3 columns for bigger images */}
+      <div className="grid grid-cols-3 gap-3">
         {items.map((item) => (
           <button
             key={item.id}

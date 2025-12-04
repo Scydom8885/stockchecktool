@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 const LoginForm = ({ onLogin }) => {
   const [username, setUsername] = useState('')
@@ -80,7 +82,14 @@ const LoginForm = ({ onLogin }) => {
             disabled={loading}
             className="w-full bg-primary text-white py-3 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
           >
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? (
+              <span>
+                <FontAwesomeIcon icon={faSpinner} className="animate-spin mr-2" />
+                Logging in...
+              </span>
+            ) : (
+              'Login'
+            )}
           </button>
         </form>
       </div>
