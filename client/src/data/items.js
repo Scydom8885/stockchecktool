@@ -9,8 +9,7 @@ export const items = {
     { id: 4, name: { mm: 'ကြက်ဥ', en: 'Egg', zh: '鸡蛋' }, image: '/webp/egg.webp' },
     { id: 5, name: { mm: 'ချဉ်သီး', en: 'Pickles', zh: '泡菜' }, image: '/webp/pickles.webp' },
     { id: 6, name: { mm: 'ဆမ်ဘော', en: 'Sambal', zh: '参巴酱' }, image: '/webp/sambal.webp' },
-    { id: 7, name: { mm: 'ဆော့စ်', en: 'Sauce', zh: '酱汁' }, image: '/webp/black_sauce.webp' },
-    { id: 8, name: { mm: 'ထမင်း', en: 'Rice', zh: '米饭' }, image: '/webp/rice.webp' },
+    { id: 7, name: { mm: 'ထမင်း', en: 'Rice', zh: '米饭' }, image: '/webp/rice.webp' },
   ],
   packaging: [
     { id: 9, name: { mm: '၃ခန်းစားကွန်တိန်နာ', en: '3-Compartment Container', zh: '三格餐盒' }, image: '/webp/3-compartment_container.webp' },

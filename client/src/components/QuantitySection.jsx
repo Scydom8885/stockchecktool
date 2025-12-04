@@ -125,7 +125,7 @@ const QuantitySection = ({ currentLang, userId, onQuantitySubmit }) => {
                        (currentPeriod === 'evening' && eveningData)
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 mb-4">
+    <div className="bg-white rounded-lg shadow-md p-4 mt-6 mb-4">
       <h2 className="text-textDark font-semibold text-lg mb-4">
         {text.title[currentLang]}
       </h2>
@@ -133,7 +133,7 @@ const QuantitySection = ({ currentLang, userId, onQuantitySubmit }) => {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Braised Pork Input */}
         <div className="flex items-center gap-3">
-          <label className="text-textDark font-medium whitespace-nowrap">
+          <label className="text-textDark font-medium whitespace-nowrap w-32">
             {text.braisedPork[currentLang]}:
           </label>
           <input
@@ -149,7 +149,7 @@ const QuantitySection = ({ currentLang, userId, onQuantitySubmit }) => {
 
         {/* Kong Bak Input */}
         <div className="flex items-center gap-3">
-          <label className="text-textDark font-medium whitespace-nowrap">
+          <label className="text-textDark font-medium whitespace-nowrap w-32">
             {text.kongBak[currentLang]}:
           </label>
           <input
