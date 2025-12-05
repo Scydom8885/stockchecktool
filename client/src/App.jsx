@@ -90,7 +90,6 @@ function App() {
         currentLang={currentLang}
         onLanguageToggle={toggleLanguage}
         onLogout={logout}
-        onRefresh={refreshSync}
       />
 
       <Tabs

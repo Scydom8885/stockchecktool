@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRightFromBracket, faRotate } from '@fortawesome/free-solid-svg-icons'
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
-const Header = ({ currentLang, onLanguageToggle, onLogout, onRefresh }) => {
+const Header = ({ currentLang, onLanguageToggle, onLogout }) => {
 
   const languageFlags = {
     mm: '🇲🇲',
@@ -26,13 +26,6 @@ const Header = ({ currentLang, onLanguageToggle, onLogout, onRefresh }) => {
           className="text-headerFont text-lg px-3 py-1 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-all"
         >
           {languageFlags[currentLang]}
-        </button>
-        <button
-          onClick={onRefresh}
-          className="text-headerFont text-lg hover:opacity-80 transition-opacity"
-          title="Refresh team items"
-        >
-          <FontAwesomeIcon icon={faRotate} />
         </button>
         <button
           onClick={onLogout}

@@ -85,8 +85,8 @@ const QuantitySection = ({ currentLang, userId, onQuantitySubmit }) => {
 
   useEffect(() => {
     fetchQuantityStatus()
-    // Poll every 10 seconds to check lock status
-    const interval = setInterval(fetchQuantityStatus, 10000)
+    // Poll every 1 second for instant sync across all devices
+    const interval = setInterval(fetchQuantityStatus, 1000)
     return () => clearInterval(interval)
   }, [])
 

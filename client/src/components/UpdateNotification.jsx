@@ -36,11 +36,32 @@ const UpdateNotification = () => {
     })
   }, [])
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
+    // Step 1: Clear all caches aggressively
+    if ('caches' in window) {
+      const cacheNames = await caches.keys()
+      await Promise.all(
+        cacheNames.map(cacheName => {
+          console.log('Clearing cache:', cacheName)
+          return caches.delete(cacheName)
+        })
+      )
+    }
+
+    // Step 2: Tell service worker to clear its caches too
+    if (navigator.serviceWorker.controller) {
+      navigator.serviceWorker.controller.postMessage({ type: 'CLEAR_CACHE' })
+    }
+
+    // Step 3: Tell waiting service worker to skip waiting
     if (waitingWorker) {
-      // Tell waiting service worker to skip waiting
       waitingWorker.postMessage({ type: 'SKIP_WAITING' })
     }
+
+    // Step 4: Force hard reload (bypass all caches)
+    setTimeout(() => {
+      window.location.reload(true)
+    }, 500)
   }
 
   if (!showUpdate) return null
