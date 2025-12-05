@@ -3,6 +3,7 @@
  */
 
 const STORAGE_KEYS = {
+  USER_SESSION: 'stockcheck_user_session',
   SUBMISSION_STATE: 'stockcheck_submission_state',
   LAST_SUBMIT_DATE: 'stockcheck_last_submit_date',
   SELECTED_ITEMS: 'stockcheck_selected_items',
@@ -82,5 +83,45 @@ export const clearAllData = () => {
     })
   } catch (error) {
     console.error('Error clearing all data:', error)
+  }
+}
+
+/**
+ * Save user session to localStorage (stay logged in)
+ * @param {Object} user - User data
+ */
+export const saveUserSession = (user) => {
+  try {
+    localStorage.setItem(STORAGE_KEYS.USER_SESSION, JSON.stringify(user))
+  } catch (error) {
+    console.error('Error saving user session:', error)
+  }
+}
+
+/**
+ * Load user session from localStorage
+ * @returns {Object|null} - User data or null if not logged in
+ */
+export const loadUserSession = () => {
+  try {
+    const userStr = localStorage.getItem(STORAGE_KEYS.USER_SESSION)
+    if (!userStr) {
+      return null
+    }
+    return JSON.parse(userStr)
+  } catch (error) {
+    console.error('Error loading user session:', error)
+    return null
+  }
+}
+
+/**
+ * Clear user session (logout)
+ */
+export const clearUserSession = () => {
+  try {
+    localStorage.removeItem(STORAGE_KEYS.USER_SESSION)
+  } catch (error) {
+    console.error('Error clearing user session:', error)
   }
 }

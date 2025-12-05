@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from 'react'
 import { login as apiLogin, saveSubmission as apiSaveSubmission, getTodaySubmissions } from '../utils/api'
 import { openWhatsApp } from '../utils/whatsapp'
 import { getCurrentDateMalaysia, isNewDay } from '../utils/dateUtils'
-import { saveSubmissionState, loadSubmissionState, getLastSubmitDate, clearSubmissionState } from '../utils/storage'
+import { saveSubmissionState, loadSubmissionState, getLastSubmitDate, clearSubmissionState, saveUserSession, loadUserSession, clearUserSession } from '../utils/storage'
 
 const AppContext = createContext()
 
@@ -32,6 +32,15 @@ export const AppProvider = ({ children }) => {
 
   // Notes state
   const [notes, setNotes] = useState('')
+
+  // Load saved user session on mount (auto-login)
+  useEffect(() => {
+    const savedUser = loadUserSession()
+    if (savedUser) {
+      setUser(savedUser)
+      setCurrentLang(savedUser.language)
+    }
+  }, [])
 
   // Load saved state when user logs in
   useEffect(() => {
@@ -185,6 +194,7 @@ export const AppProvider = ({ children }) => {
       if (userData) {
         setUser(userData)
         setCurrentLang(userData.language) // Auto-set language based on user
+        saveUserSession(userData) // Save to localStorage (stay logged in forever)
         return { success: true }
       }
 
@@ -197,8 +207,9 @@ export const AppProvider = ({ children }) => {
 
   // Logout function
   const logout = () => {
-    // Don't clear localStorage - only clear session state
-    // localStorage should only be cleared at midnight (new day)
+    // Clear user session from localStorage
+    clearUserSession()
+    // Clear session state
     setUser(null)
     setCurrentLang('mm')
     setActiveTab('main')

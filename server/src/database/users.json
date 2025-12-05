@@ -26,5 +26,19 @@
     "password": "$2b$10$.FWSUETTHF5AjhFn1kEtPOXrN5iqxq/jZ1Q05NzRLg9/y5tl8w7bS",
     "language": "mm",
     "createdAt": "2025-11-30T03:24:58.397Z"
+  },
+  {
+    "id": 6,
+    "username": "kim",
+    "password": "$2b$10$v9By211imyyiTWuOVJHzGOuMSyaGbVu58cQU/l11HVnc14gidDmje",
+    "language": "mm",
+    "createdAt": "2025-12-05T03:55:35.492Z"
+  },
+  {
+    "id": 7,
+    "username": "huai",
+    "password": "$2b$10$5AEAPIfdy6pDdRgpqkuvbOYfEDwc1HsPI.hZjV0TybaS1iekWK49S",
+    "language": "mm",
+    "createdAt": "2025-12-05T03:58:34.090Z"
   }
 ]
