@@ -84,10 +84,8 @@ const QuantitySection = ({ currentLang, userId, onQuantitySubmit }) => {
   }
 
   useEffect(() => {
+    // Fetch initial status only (no polling - backend doesn't persist data)
     fetchQuantityStatus()
-    // Poll every 1 second for instant sync across all devices
-    const interval = setInterval(fetchQuantityStatus, 1000)
-    return () => clearInterval(interval)
   }, [])
 
   const handleSubmit = async (e) => {
@@ -131,36 +129,72 @@ const QuantitySection = ({ currentLang, userId, onQuantitySubmit }) => {
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Braised Pork Input */}
+        {/* Braised Pork Input - Hybrid Method */}
         <div className="flex items-center gap-3">
           <label className="text-textDark font-medium whitespace-nowrap w-32">
             {text.braisedPork[currentLang]}:
           </label>
-          <input
-            type="number"
-            min="0"
-            value={braisedPork}
-            onChange={(e) => setBraisedPork(e.target.value)}
-            disabled={isLocked || hasSubmitted || loading}
-            className="flex-1 border-2 border-gray-300 rounded-lg p-3 text-textDark focus:border-primary focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
-            placeholder="0"
-          />
+          <div className="flex-1 flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setBraisedPork(Math.max(0, parseInt(braisedPork || 0) - 1).toString())}
+              disabled={isLocked || hasSubmitted || loading}
+              className="w-10 h-10 bg-gray-200 rounded-lg font-bold text-lg hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              -
+            </button>
+            <input
+              type="number"
+              min="0"
+              value={braisedPork}
+              onChange={(e) => setBraisedPork(e.target.value)}
+              disabled={isLocked || hasSubmitted || loading}
+              className="flex-1 border-2 border-gray-300 rounded-lg p-3 text-center text-textDark focus:border-primary focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+              placeholder="0"
+            />
+            <button
+              type="button"
+              onClick={() => setBraisedPork((parseInt(braisedPork || 0) + 1).toString())}
+              disabled={isLocked || hasSubmitted || loading}
+              className="w-10 h-10 bg-gray-200 rounded-lg font-bold text-lg hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              +
+            </button>
+          </div>
         </div>
 
-        {/* Kong Bak Input */}
+        {/* Kong Bak Input - Hybrid Method */}
         <div className="flex items-center gap-3">
           <label className="text-textDark font-medium whitespace-nowrap w-32">
             {text.kongBak[currentLang]}:
           </label>
-          <input
-            type="number"
-            min="0"
-            value={kongBak}
-            onChange={(e) => setKongBak(e.target.value)}
-            disabled={isLocked || hasSubmitted || loading}
-            className="flex-1 border-2 border-gray-300 rounded-lg p-3 text-textDark focus:border-primary focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
-            placeholder="0"
-          />
+          <div className="flex-1 flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setKongBak(Math.max(0, parseInt(kongBak || 0) - 1).toString())}
+              disabled={isLocked || hasSubmitted || loading}
+              className="w-10 h-10 bg-gray-200 rounded-lg font-bold text-lg hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              -
+            </button>
+            <input
+              type="number"
+              min="0"
+              value={kongBak}
+              onChange={(e) => setKongBak(e.target.value)}
+              disabled={isLocked || hasSubmitted || loading}
+              className="flex-1 border-2 border-gray-300 rounded-lg p-3 text-center text-textDark focus:border-primary focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed"
+              placeholder="0"
+            />
+            <button
+              type="button"
+              onClick={() => setKongBak((parseInt(kongBak || 0) + 1).toString())}
+              disabled={isLocked || hasSubmitted || loading}
+              className="w-10 h-10 bg-gray-200 rounded-lg font-bold text-lg hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              +
+            </button>
+          </div>
         </div>
 
         {/* Submit Button */}

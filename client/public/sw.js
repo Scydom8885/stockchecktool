@@ -1,6 +1,7 @@
 // Service Worker for Stock Check Tool PWA
-// Dynamic cache name with build timestamp - forces update on every deployment
-const CACHE_NAME = `stock-check-${new Date().getTime()}`
+// Version-based cache name - increment manually on each deployment
+const CACHE_VERSION = '5.0'  // UPDATE THIS ON EACH DEPLOYMENT!
+const CACHE_NAME = `stock-check-v${CACHE_VERSION}`
 
 // Install event - activate immediately
 self.addEventListener('install', (event) => {

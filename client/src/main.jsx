@@ -18,6 +18,18 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')
       .then((registration) => {
         console.log('Service Worker registered:', registration)
+
+        // Check for updates every 30 seconds
+        setInterval(() => {
+          registration.update()
+        }, 30000)
+
+        // Also check for updates when page becomes visible
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible') {
+            registration.update()
+          }
+        })
       })
       .catch((error) => {
         console.log('Service Worker registration failed:', error)

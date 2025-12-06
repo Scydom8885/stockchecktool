@@ -20,7 +20,10 @@ const formatItemsInChinese = (items) => {
     return '无物品'
   }
 
-  return items.map(item => `• ${item.name.zh}`).join('\n')
+  return items.map(item => {
+    const quantity = item.quantity || 1
+    return `• ${item.name.zh} x ${quantity}`
+  }).join('\n')
 }
 
 /**
@@ -33,7 +36,10 @@ const formatItemsInEnglish = (items) => {
     return 'No items'
   }
 
-  return items.map(item => `• ${item.name.en}`).join('\n')
+  return items.map(item => {
+    const quantity = item.quantity || 1
+    return `• ${item.name.en} x ${quantity}`
+  }).join('\n')
 }
 
 /**

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
@@ -10,12 +11,44 @@ const SelectedItems = ({
   onDeleteItem,
   onSubmit,
 }) => {
+  // Track quantities for each item
+  const [quantities, setQuantities] = useState({})
+
+  // Initialize quantities when selectedItems change
+  useEffect(() => {
+    const newQuantities = { ...quantities }
+    selectedItems.forEach(item => {
+      if (!(item.id in newQuantities)) {
+        newQuantities[item.id] = item.quantity || 1 // Default to 1
+      }
+    })
+    setQuantities(newQuantities)
+  }, [selectedItems])
+
+  // Update quantity for an item
+  const updateQuantity = (itemId, newQuantity) => {
+    setQuantities({
+      ...quantities,
+      [itemId]: Math.max(0, parseInt(newQuantity) || 0)
+    })
+  }
+
   // Check if there are new items to submit
   const hasNewItems = selectedItems.length > submittedItems.length
 
   // Check if an item has been submitted
   const isItemSubmitted = (item) => {
     return submittedItems.find(submitted => submitted.id === item.id)
+  }
+
+  // Handle submit with quantities
+  const handleSubmit = () => {
+    // Enrich items with quantities
+    const itemsWithQuantities = selectedItems.map(item => ({
+      ...item,
+      quantity: quantities[item.id] || 1
+    }))
+    onSubmit(itemsWithQuantities)
   }
   const headerText = {
     mm: 'ပြန်ဖြည့်ရန်ပစ္စည်းများ',
@@ -27,6 +60,12 @@ const SelectedItems = ({
     mm: 'ပစ္စည်းမရှိသေးပါ',
     en: 'No items selected',
     zh: '未选择物品',
+  }
+
+  const quantityText = {
+    mm: 'အရေအတွက်',
+    en: 'Quantity',
+    zh: '数量',
   }
 
   const notesPlaceholder = {
@@ -48,7 +87,7 @@ const SelectedItems = ({
       </h2>
 
       {/* Selected Items List */}
-      <div className="space-y-2 mb-4 min-h-[100px]">
+      <div className="space-y-3 mb-4 min-h-[100px]">
         {selectedItems.length === 0 ? (
           <p className="text-gray-400 text-center py-8">
             {noItemsText[currentLang]}
@@ -57,16 +96,59 @@ const SelectedItems = ({
           selectedItems.map((item, index) => (
             <div
               key={index}
-              className="flex justify-between items-center bg-gray-50 px-4 py-3 rounded-lg"
+              className="bg-gray-50 px-4 py-3 rounded-lg space-y-2"
             >
-              <span className="text-textDark">• {item.name[currentLang]}</span>
+              {/* Item Name */}
+              <div className="flex justify-between items-center">
+                <span className="text-textDark font-medium">• {item.name[currentLang]}</span>
+                {!isItemSubmitted(item) && (
+                  <button
+                    onClick={() => onDeleteItem(item)}
+                    className="text-red-500 hover:text-red-700 transition-colors"
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                )}
+              </div>
+
+              {/* Quantity Input - Hybrid Method */}
               {!isItemSubmitted(item) && (
-                <button
-                  onClick={() => onDeleteItem(item)}
-                  className="text-red-500 hover:text-red-700 transition-colors"
-                >
-                  <FontAwesomeIcon icon={faTrash} />
-                </button>
+                <div className="flex items-center gap-2">
+                  <label className="text-textDark text-sm w-20">
+                    {quantityText[currentLang]}:
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => updateQuantity(item.id, (quantities[item.id] || 1) - 1)}
+                    className="w-8 h-8 bg-gray-200 rounded-lg font-bold hover:bg-gray-300"
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    min="0"
+                    value={quantities[item.id] || 1}
+                    onChange={(e) => updateQuantity(item.id, e.target.value)}
+                    className="flex-1 border-2 border-gray-300 rounded-lg p-2 text-center text-textDark focus:border-primary focus:outline-none"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => updateQuantity(item.id, (quantities[item.id] || 1) + 1)}
+                    className="w-8 h-8 bg-gray-200 rounded-lg font-bold hover:bg-gray-300"
+                  >
+                    +
+                  </button>
+                </div>
+              )}
+
+              {/* Show locked quantity for submitted items */}
+              {isItemSubmitted(item) && (
+                <div className="flex items-center gap-2">
+                  <label className="text-textDark text-sm w-20">
+                    {quantityText[currentLang]}:
+                  </label>
+                  <span className="text-gray-600">{quantities[item.id] || 1}</span>
+                </div>
               )}
             </div>
           ))
@@ -85,7 +167,7 @@ const SelectedItems = ({
       {/* Submit Button */}
       <div className="flex justify-end">
         <button
-          onClick={onSubmit}
+          onClick={handleSubmit}
           disabled={!hasNewItems || selectedItems.length === 0}
           className="bg-primary text-white px-8 py-3 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
