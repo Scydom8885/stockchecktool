@@ -87,7 +87,7 @@ const SelectedItems = ({
       </h2>
 
       {/* Selected Items List */}
-      <div className="space-y-3 mb-4 min-h-[100px]">
+      <div className="space-y-2 mb-4 min-h-[100px]">
         {selectedItems.length === 0 ? (
           <p className="text-gray-400 text-center py-8">
             {noItemsText[currentLang]}
@@ -96,60 +96,50 @@ const SelectedItems = ({
           selectedItems.map((item, index) => (
             <div
               key={index}
-              className="bg-gray-50 px-4 py-3 rounded-lg space-y-2"
+              className="flex justify-between items-center bg-gray-50 px-4 py-3 rounded-lg gap-2"
             >
-              {/* Item Name */}
-              <div className="flex justify-between items-center">
-                <span className="text-textDark font-medium">• {item.name[currentLang]}</span>
-                {!isItemSubmitted(item) && (
-                  <button
-                    onClick={() => onDeleteItem(item)}
-                    className="text-red-500 hover:text-red-700 transition-colors"
-                  >
-                    <FontAwesomeIcon icon={faTrash} />
-                  </button>
+              {/* Item Name - Left */}
+              <span className="text-textDark font-medium">• {item.name[currentLang]}</span>
+
+              {/* Quantity Controls + Delete - Right */}
+              <div className="flex items-center gap-2">
+                {!isItemSubmitted(item) ? (
+                  <>
+                    {/* Quantity Hybrid Method */}
+                    <button
+                      type="button"
+                      onClick={() => updateQuantity(item.id, (quantities[item.id] || 1) - 1)}
+                      className="w-8 h-8 bg-gray-200 rounded-lg font-bold hover:bg-gray-300 flex-shrink-0"
+                    >
+                      -
+                    </button>
+                    <input
+                      type="number"
+                      min="0"
+                      value={quantities[item.id] || 1}
+                      onChange={(e) => updateQuantity(item.id, e.target.value)}
+                      className="w-14 border-2 border-gray-300 rounded-lg p-2 text-center text-textDark focus:border-primary focus:outline-none flex-shrink-0"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => updateQuantity(item.id, (quantities[item.id] || 1) + 1)}
+                      className="w-8 h-8 bg-gray-200 rounded-lg font-bold hover:bg-gray-300 flex-shrink-0"
+                    >
+                      +
+                    </button>
+                    {/* Delete Button */}
+                    <button
+                      onClick={() => onDeleteItem(item)}
+                      className="text-red-500 hover:text-red-700 transition-colors ml-2 flex-shrink-0"
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                  </>
+                ) : (
+                  /* Submitted - show locked quantity */
+                  <span className="text-gray-600">x {quantities[item.id] || 1}</span>
                 )}
               </div>
-
-              {/* Quantity Input - Hybrid Method */}
-              {!isItemSubmitted(item) && (
-                <div className="flex items-center gap-2">
-                  <label className="text-textDark text-sm w-20">
-                    {quantityText[currentLang]}:
-                  </label>
-                  <button
-                    type="button"
-                    onClick={() => updateQuantity(item.id, (quantities[item.id] || 1) - 1)}
-                    className="w-8 h-8 bg-gray-200 rounded-lg font-bold hover:bg-gray-300"
-                  >
-                    -
-                  </button>
-                  <input
-                    type="number"
-                    min="0"
-                    value={quantities[item.id] || 1}
-                    onChange={(e) => updateQuantity(item.id, e.target.value)}
-                    className="flex-1 border-2 border-gray-300 rounded-lg p-2 text-center text-textDark focus:border-primary focus:outline-none"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => updateQuantity(item.id, (quantities[item.id] || 1) + 1)}
-                    className="w-8 h-8 bg-gray-200 rounded-lg font-bold hover:bg-gray-300"
-                  >
-                    +
-                  </button>
-                </div>
-              )}
-
-              {/* Show locked quantity for submitted items */}
-              {isItemSubmitted(item) && (
-                <div className="flex items-center gap-2">
-                  <label className="text-textDark text-sm w-20">
-                    {quantityText[currentLang]}:
-                  </label>
-                  <span className="text-gray-600">{quantities[item.id] || 1}</span>
-                </div>
-              )}
             </div>
           ))
         )}
