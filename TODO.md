@@ -398,12 +398,9 @@ users (
   - [x] Update manifest.json
 
 ### Phase 15: Documentation 📝
-- [ ] Create user guide (Myanmar language)
+- [ ] Create user guide 
   - [ ] How to install PWA
-  - [ ] How to login
-  - [ ] How to select items
-  - [ ] How to submit
-- [ ] Create owner guide (English)
+- [ ] Create owner guide 
   - [ ] How to add/remove users via CLI
   - [ ] How to update ingredient list in code
   - [ ] How to view submissions in database
