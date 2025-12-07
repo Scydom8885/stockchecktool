@@ -4,7 +4,7 @@
 export const items = {
   main: [
     { id: 1, name: { mm: 'တို့ဖူး', en: 'Tofu', zh: '豆腐' }, image: '/webp/tofu.webp' }, // Will add image tomorrow
-    { id: 2, name: { mm: 'ဘဲကြွပ်', en: 'Cabbage', zh: '包菜' }, image: '/webp/cabbage.webp' }, // Will add image tomorrow
+    { id: 2, name: { mm: 'ဘဲကြွပ်', en: 'Cabbage', zh: '白菜' }, image: '/webp/cabbage.webp' }, // Will add image tomorrow
     { id: 3, name: { mm: 'ရှီတာကဲ', en: 'Shiitake', zh: '香菇' }, image: '🍄' }, // Will add image tomorrow
     { id: 4, name: { mm: 'ကြက်ဥ', en: 'Egg', zh: '鸡蛋' }, image: '/webp/egg.webp' },
     { id: 5, name: { mm: 'ချဉ်သီး', en: 'Pickles', zh: '泡菜' }, image: '/webp/pickles.webp' },
@@ -23,7 +23,7 @@ export const items = {
     { id: 15, name: { mm: 'အနက်ဝိုင်', en: 'Black Wine', zh: '黑酒' }, image: '/webp/black_wine.webp' },
     { id: 16, name: { mm: 'ဆီ', en: 'Oil', zh: '油' }, image: '/webp/oil.webp' },
     { id: 17, name: { mm: 'အနက်ဆော့စ်', en: 'Dark Sauce', zh: '黑酱油' }, image: '/webp/black_sauce.webp' },
-    { id: 18, name: { mm: 'ဓာတ်ငွေ့', en: 'Gas', zh: '燃气' }, image: '/webp/gas.webp' },
+    { id: 18, name: { mm: 'ဓာတ်ငွေ့', en: 'Gas', zh: 'Gas桶' }, image: '/webp/gas.webp' },
     { id: 19, name: { mm: 'ဆား', en: 'Salt', zh: '盐' }, image: '/webp/salt.webp' },
   ],
 }

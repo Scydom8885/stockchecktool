@@ -260,9 +260,9 @@ users (
   - [x] Cache static assets
   - [x] Enable offline functionality
   - [x] Register service worker in `main.jsx`
-- [] Test PWA installation on mobile
-  - [] Test "Add to Home Screen" on Android
-  - [] Test "Add to Home Screen" on iOS
+- [x] Test PWA installation on mobile
+  - [x] Test "Add to Home Screen" on Android
+  - [x] Test "Add to Home Screen" on iOS
 
 ### Phase 8: Backend Setup 🖥️
 - [x] Create `server/` folder structure
@@ -340,10 +340,10 @@ users (
   - [x] Manually change system date
   - [x] Verify reset at midnight
   - [x] Test submission lock/unlock
-- [ ] Test PWA installation
-  - [ ] Install on Android
-  - [ ] Install on iOS
-  - [ ] Test offline functionality
+- [x] Test PWA installation
+  - [x] Install on Android
+  - [x] Install on iOS
+  - [x] Test offline functionality
 - [x] Test CLI user management
   - [x] Test add user command
   - [x] Test remove user command
@@ -379,11 +379,7 @@ users (
   - [x] PWA install button with fallback instructions
   - [x] Network-first service worker strategy
   - [x] Auto-deploy from GitHub to Render
-- [ ] **PENDING: Firebase Migration (Planned for Thursday)**
-  - [ ] Replace Render backend with Firebase Firestore
-  - [ ] Add Firebase Authentication
-  - [ ] Implement real-time WebSocket sync
-  - [ ] Test instant updates across devices
+
 
 ### Phase 14: User Images & Final Touches 🎨
 - [x] Create `public/webp/` folder
@@ -395,8 +391,8 @@ users (
   - [x] Resize to 300x300 pixels
   - [x] Compress to <100KB each
   - [x] Convert to WebP if needed
-- [ ] Update `data/items.js` with image paths
-- [ ] Test image loading on all devices
+- [x] Update `data/items.js` with image paths
+- [x] Test image loading on all devices
 - [x] Create app icons (192x192, 512x512)
   - [x] Use company logo or stock icon
   - [x] Update manifest.json
