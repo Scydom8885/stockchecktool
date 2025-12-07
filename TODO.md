@@ -398,18 +398,18 @@ users (
   - [x] Update manifest.json
 
 ### Phase 15: Documentation 📝
-- [ ] Create user guide 
-  - [ ] How to install PWA
-- [ ] Create owner guide 
-  - [ ] How to add/remove users via CLI
-  - [ ] How to update ingredient list in code
-  - [ ] How to view submissions in database
-  - [ ] How to redeploy after code changes
-- [ ] Update README.md
-  - [ ] Project description
-  - [ ] Setup instructions
-  - [ ] Deployment guide
-  - [ ] CLI commands reference
+- [x] Create user guide
+  - [x] How to install PWA
+- [x] Create owner guide
+  - [x] How to add/remove users via CLI
+  - [x] How to update ingredient list in code
+  - [x] How to view submissions in database
+  - [x] How to redeploy after code changes
+- [x] Update README.md
+  - [x] Project description
+  - [x] Setup instructions
+  - [x] Deployment guide
+  - [x] CLI commands reference
 
 ---
 
