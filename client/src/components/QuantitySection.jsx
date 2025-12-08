@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { parse } from '@fortawesome/fontawesome-svg-core'
 
 const QuantitySection = ({ currentLang, userId, onQuantitySubmit }) => {
   const [braisedPork, setBraisedPork] = useState('')
   const [kongBak, setKongBak] = useState('')
+  const [shiitake, setShiitake] = useState('')
   const [isLocked, setIsLocked] = useState(true)
   const [currentPeriod, setCurrentPeriod] = useState('morning')
   const [morningData, setMorningData] = useState(null)
@@ -28,6 +30,11 @@ const QuantitySection = ({ currentLang, userId, onQuantitySubmit }) => {
       mm: 'Kong Bak',
       en: 'Kong Bak',
       zh: '焢肉',
+    },
+    shiitake: {
+      mm: 'ရှီတာကဲ',
+      en: 'Shiitake',
+      zh: '香菇',
     },
     submit: {
       mm: 'တင်သွင်းရန်',
@@ -55,24 +62,29 @@ const QuantitySection = ({ currentLang, userId, onQuantitySubmit }) => {
           // Morning period, already submitted
           setBraisedPork(data.morning.braised_pork.toString())
           setKongBak(data.morning.kong_bak.toString())
+          setShiitake(data.morning.shiitake.toString())
         } else if (data.current_period === 'evening') {
           if (data.evening) {
             // Evening period, already submitted
             setBraisedPork(data.evening.braised_pork.toString())
             setKongBak(data.evening.kong_bak.toString())
+            setShiitake(data.evening.shiitake.toString())
           } else if (data.can_submit) {
             // Evening period, not submitted yet, clear inputs
             setBraisedPork('')
             setKongBak('')
+            setShiitake('')
           }
         } else if (!data.can_submit) {
           // Before 10 AM, show morning data if exists
           if (data.morning) {
             setBraisedPork(data.morning.braised_pork.toString())
             setKongBak(data.morning.kong_bak.toString())
+            setShiitake(data.morning.shiitake.toString())
           } else {
             setBraisedPork('')
             setKongBak('')
+            setShiitake('')
           }
         }
       }
@@ -91,7 +103,7 @@ const QuantitySection = ({ currentLang, userId, onQuantitySubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if (!braisedPork || !kongBak) {
+    if (!braisedPork || !kongBak || !shiitake) {
       alert('Please fill in both quantities')
       return
     }
@@ -101,6 +113,7 @@ const QuantitySection = ({ currentLang, userId, onQuantitySubmit }) => {
       const result = await onQuantitySubmit(
         parseInt(braisedPork),
         parseInt(kongBak),
+        parseInt(shiitake),
         currentPeriod
       )
 
@@ -196,6 +209,40 @@ const QuantitySection = ({ currentLang, userId, onQuantitySubmit }) => {
             </button>
           </div>
         </div>
+
+        {/* Shiitake Input - Hybrid Method (Right-Aligned) */}
+        <div className="flex justify-between items-center bg-gray-50 px-4 py-3 rounded-lg gap-2">
+          <label className="text-textDark font-medium">
+            {text.shiitake[currentLang]}
+          </label>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setShiitake(Math.max(0, parseInt(shiitake || 0) - 1).toString())}
+              disabled={isLocked || hasSubmitted || loading}
+              className="w-8 h-8 bg-gray-200 rounded-lg font-bold hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+            >
+              -
+            </button>
+            <input
+              type="number"
+              min="0"
+              value={shiitake}
+              onChange={(e) => setShiitake(e.target.value)}
+              disabled={isLocked || hasSubmitted || loading}
+              className="w-14 border-2 border-gray-300 rounded-lg p-2 text-center text-textDark focus:border-primary focus:outline-none disabled:bg-gray-100 disabled:cursor-not-allowed flex-shrink-0"
+              placeholder="0"
+            />
+            <button
+              type="button"
+              onClick={() => setShiitake((parseInt(shiitake || 0) + 1).toString())}
+              disabled={isLocked || hasSubmitted || loading}
+              className="w-8 h-8 bg-gray-200 rounded-lg font-bold hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+            >
+              +
+            </button>
+          </div>
+        </div>  
 
         {/* Submit Button */}
         <button

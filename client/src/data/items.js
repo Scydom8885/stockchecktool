@@ -5,7 +5,7 @@ export const items = {
   main: [
     { id: 1, name: { mm: 'တို့ဖူး', en: 'Tofu', zh: '豆腐' }, image: '/webp/tofu.webp' }, // Will add image tomorrow
     { id: 2, name: { mm: 'ဘဲကြွပ်', en: 'Cabbage', zh: '白菜' }, image: '/webp/cabbage.webp' }, // Will add image tomorrow
-    { id: 3, name: { mm: 'ရှီတာကဲ', en: 'Shiitake', zh: '香菇' }, image: '🍄' }, // Will add image tomorrow
+    // { id: 3, name: { mm: 'ရှီတာကဲ', en: 'Shiitake', zh: '香菇' }, image: '🍄' }, 
     { id: 4, name: { mm: 'ကြက်ဥ', en: 'Egg', zh: '鸡蛋' }, image: '/webp/egg.webp' },
     { id: 5, name: { mm: 'ချဉ်သီး', en: 'Pickles', zh: '泡菜' }, image: '/webp/pickles.webp' },
     { id: 6, name: { mm: 'ဆမ်ဘော', en: 'Sambal', zh: '参巴酱' }, image: '/webp/sambal.webp' },
