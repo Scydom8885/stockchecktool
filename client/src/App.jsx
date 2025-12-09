@@ -66,7 +66,7 @@ function App() {
 
       if (data.success) {
         // Send to WhatsApp (brother's number only, in Chinese)
-        sendQuantityWhatsApp(user.username, braisedPork, kongBak,shiitake, period, '012-8533050')
+        sendQuantityWhatsApp(user.username, braisedPork, kongBak, shiitake, period)
         return { success: true }
       } else {
         return { success: false, error: data.error }

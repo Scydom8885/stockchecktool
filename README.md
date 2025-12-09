@@ -244,15 +244,19 @@ export const items = {
 }
 ```
 
-### WhatsApp Phone Number
+### WhatsApp Phone Numbers
 
-Edit `client/src/App.jsx` line 69:
+All WhatsApp phone numbers are centrally configured in `client/src/utils/whatsapp.js`:
 
 ```javascript
-sendQuantityWhatsApp(user.username, braisedPork, kongBak, period, '012-8533050')
+// Owner's phone number (for stock reorder notifications)
+const OWNER_PHONE = '60187806530'  // Your number: 018-780 6530
+
+// Brother's phone number (for quantity check notifications)
+const BROTHER_PHONE = '60128533050'  // Brother's number: 012-853 3050
 ```
 
-Change `'012-8533050'` to your desired number.
+Change these constants to your desired numbers (in international format: 60 + number without leading 0).
 
 ### Service Worker Version
 

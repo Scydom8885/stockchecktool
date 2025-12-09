@@ -8,7 +8,10 @@ const WHATSAPP_API_URL = 'https://api.whatsapp.com/send'
 
 // Owner's phone number (in international format without + or -)
 // Malaysia format: 60 + phone number (without leading 0)
-const OWNER_PHONE = '60187806530'  // Your number: 018-780 6530
+const DOM_WA = '60187806530'  // Your number: 018-780 6530
+
+// Brother's phone number (in international format without + or -)
+const BRO_WA = '60128533050'  // Brother's number: 012-853 3050
 
 /**
  * Format items list in Chinese
@@ -114,7 +117,7 @@ export const generateWhatsAppLink = (phoneNumber, language, username, selectedIt
  */
 export const openWhatsApp = (username, selectedItems, notes) => {
   // Open WhatsApp for owner's number with Chinese message
-  const whatsappLink = generateWhatsAppLink(OWNER_PHONE, 'zh', username, selectedItems, notes)
+  const whatsappLink = generateWhatsAppLink(BRO_WA, 'zh', username, selectedItems, notes)
   window.open(whatsappLink, '_blank')
 
   // User just needs to:
@@ -128,6 +131,7 @@ export const openWhatsApp = (username, selectedItems, notes) => {
  * @param {string} username - Username of submitter
  * @param {number} braisedPork - Quantity of braised pork
  * @param {number} kongBak - Quantity of kong bak
+ * @param {number} shiitake - Quantity of shiitake
  * @param {string} period - Time period (morning/evening)
  * @returns {string} - Formatted message in Chinese
  */
@@ -138,6 +142,7 @@ const generateQuantityMessageChinese = (username, braisedPork, kongBak, period) 
   message += `时段：${periodText}\n\n`
   message += `卤肉：${braisedPork} 包\n`
   message += `焢肉：${kongBak} 包\n`
+  message += `香菇：${shiitake} 包\n` 
   message += `\n---\n提交人：${username}\n`
   message += `发送时间：${new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Kuala_Lumpur' })}`
 
@@ -149,16 +154,13 @@ const generateQuantityMessageChinese = (username, braisedPork, kongBak, period) 
  * @param {string} username - Username of submitter
  * @param {number} braisedPork - Quantity of braised pork
  * @param {number} kongBak - Quantity of kong bak
+ * @param {number} shiitake - Quantity of shiitake
  * @param {string} period - Time period (morning/evening)
- * @param {string} phoneNumber - Brother's phone number (012-8533050)
  */
-export const sendQuantityWhatsApp = (username, braisedPork, kongBak, period, phoneNumber) => {
-  // Convert phone number to international format (60 + number without leading 0)
-  const internationalPhone = '60' + phoneNumber.replace(/^0/, '').replace(/-/g, '')
-
-  const message = generateQuantityMessageChinese(username, braisedPork, kongBak, period)
+export const sendQuantityWhatsApp = (username, braisedPork, kongBak, shiitake, period) => {
+  const message = generateQuantityMessageChinese(username, braisedPork, kongBak, shiitake, period)
   const encodedMessage = encodeURIComponent(message)
-  const whatsappLink = `${WHATSAPP_API_URL}?phone=${internationalPhone}&text=${encodedMessage}`
+  const whatsappLink = `${WHATSAPP_API_URL}?phone=${BRO_WA}&text=${encodedMessage}`
 
   window.open(whatsappLink, '_blank')
 }

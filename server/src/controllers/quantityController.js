@@ -40,7 +40,7 @@ const getPeriodStatus = () => {
 // POST /api/quantities - Save a new quantity submission
 export const saveQuantity = async (req, res) => {
   try {
-    const { userId, braised_pork, kong_bak } = req.body
+    const { userId, braised_pork, kong_bak ,shiitake} = req.body
 
     // Validate input
     if (!userId) {
@@ -49,9 +49,9 @@ export const saveQuantity = async (req, res) => {
       })
     }
 
-    if (braised_pork === undefined || kong_bak === undefined) {
+    if (braised_pork === undefined || kong_bak === undefined || shiitake === undefined) {
       return res.status(400).json({
-        error: 'Both braised_pork and kong_bak quantities are required'
+        error: 'braised_pork ,kong_bak and shiitake quantities are required'
       })
     }
 
@@ -81,6 +81,7 @@ export const saveQuantity = async (req, res) => {
       time_period: period,
       braised_pork: parseInt(braised_pork),
       kong_bak: parseInt(kong_bak),
+      shiitake: parseInt(shiitake),
       submitted_at: new Date().toISOString()
     })
 
