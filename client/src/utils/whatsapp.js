@@ -135,7 +135,7 @@ export const openWhatsApp = (username, selectedItems, notes) => {
  * @param {string} period - Time period (morning/evening)
  * @returns {string} - Formatted message in Chinese
  */
-const generateQuantityMessageChinese = (username, braisedPork, kongBak, period) => {
+const generateQuantityMessageChinese = (username, braisedPork, kongBak, shiitake , period) => {
   const periodText = period === 'morning' ? '上午' : '晚上'
 
   let message = `📦 *数量检查通知*\n\n`

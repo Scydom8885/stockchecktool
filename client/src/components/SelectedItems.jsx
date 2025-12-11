@@ -108,7 +108,7 @@ const SelectedItems = ({
                     {/* Quantity Hybrid Method */}
                     <button
                       type="button"
-                      onClick={() => updateQuantity(item.id, (quantities[item.id] || 1) - 1)}
+                      onClick={() => updateQuantity(item.id, (quantities[item.id] ?? 1) - 1)}
                       className="w-8 h-8 bg-gray-200 rounded-lg font-bold hover:bg-gray-300 flex-shrink-0"
                     >
                       -
@@ -116,13 +116,13 @@ const SelectedItems = ({
                     <input
                       type="number"
                       min="0"
-                      value={quantities[item.id] || 1}
+                      value={quantities[item.id] ?? 1}
                       onChange={(e) => updateQuantity(item.id, e.target.value)}
                       className="w-14 border-2 border-gray-300 rounded-lg p-2 text-center text-textDark focus:border-primary focus:outline-none flex-shrink-0"
                     />
                     <button
                       type="button"
-                      onClick={() => updateQuantity(item.id, (quantities[item.id] || 1) + 1)}
+                      onClick={() => updateQuantity(item.id, (quantities[item.id] ?? 1) + 1)}
                       className="w-8 h-8 bg-gray-200 rounded-lg font-bold hover:bg-gray-300 flex-shrink-0"
                     >
                       +
@@ -137,7 +137,7 @@ const SelectedItems = ({
                   </>
                 ) : (
                   /* Submitted - show locked quantity */
-                  <span className="text-gray-600">x {quantities[item.id] || 1}</span>
+                  <span className="text-gray-600">x {quantities[item.id] ?? 1}</span>
                 )}
               </div>
             </div>

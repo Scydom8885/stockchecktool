@@ -26,7 +26,7 @@ const getPeriodStatus = () => {
 
   // 10:00 AM = 600 minutes, 9:55 PM = 1315 minutes
   const morningUnlockTime = 10 * 60  // 10:00 AM
-  const eveningUnlockTime = 21 * 60 + 55  // 9:55 PM
+  const eveningUnlockTime = 21 * 60  // 9:55 PM
 
   if (currentMinutes >= morningUnlockTime && currentMinutes < eveningUnlockTime) {
     return { period: 'morning', canSubmit: true }

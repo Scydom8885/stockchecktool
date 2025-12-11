@@ -329,7 +329,50 @@ Render automatically:
 
 ### Checking Backend Status
 
-**Health Check:**
+#### Method 1: Quick Status Check
+
+```bash
+curl -s https://stockcheck-api.onrender.com/api/quantities/status
+```
+
+**Expected response:**
+```json
+{"success":true,"date":"2025-12-09","current_period":"morning","can_submit":true,"morning":null,"evening":null}
+```
+
+✅ If you see JSON response → Server is **WORKING**
+❌ If no response or error → Server is **DOWN**
+
+---
+
+#### Method 2: Check with Response Time (Recommended)
+
+```bash
+time curl -s https://stockcheck-api.onrender.com/api/quantities/status
+```
+
+**What the response time tells you:**
+
+✅ **real 0m1.234s** (< 3 seconds) → Server was **AWAKE** 🟢
+⚠️ **real 0m25.678s** (20-50 seconds) → Server was **SLEEPING**, just woke up 🟡
+❌ **real 1m0.000s+** (timeout) → Server is **DOWN** 🔴
+
+**Example output:**
+```json
+{"success":true,"date":"2025-12-09",...}
+
+real    0m1.456s   ← Fast response = Server awake!
+user    0m0.031s
+sys     0m0.000s
+```
+
+**Why this matters:**
+Render Free Tier sleeps after 15 minutes of inactivity. First request after sleep takes 20-50 seconds to wake up.
+
+---
+
+#### Method 3: Health Check (Legacy)
+
 ```bash
 curl https://stockcheck-api.onrender.com/api/health
 ```

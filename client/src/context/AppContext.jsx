@@ -245,9 +245,10 @@ export const AppProvider = ({ children }) => {
   }
 
   // Submit function
-  const submit = async () => {
+  const submit = async (itemsWithQuantities) => {
+    const itemsToUse = itemsWithQuantities || selectedItems
     // Get only NEW items (items not yet submitted)
-    const newItems = selectedItems.filter(
+    const newItems = itemsToUse.filter(
       item => !submittedItems.find(submitted => submitted.id === item.id)
     )
 
