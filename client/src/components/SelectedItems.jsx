@@ -19,7 +19,7 @@ const SelectedItems = ({
     const newQuantities = { ...quantities }
     selectedItems.forEach(item => {
       if (!(item.id in newQuantities)) {
-        newQuantities[item.id] = item.quantity || 1 // Default to 1
+        newQuantities[item.id] = item.quantity ?? 1 // Default to 1
       }
     })
     setQuantities(newQuantities)
@@ -46,7 +46,7 @@ const SelectedItems = ({
     // Enrich items with quantities
     const itemsWithQuantities = selectedItems.map(item => ({
       ...item,
-      quantity: quantities[item.id] || 1
+      quantity: quantities[item.id] ?? 1
     }))
     onSubmit(itemsWithQuantities)
   }

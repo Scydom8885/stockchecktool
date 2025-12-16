@@ -24,7 +24,7 @@ const formatItemsInChinese = (items) => {
   }
 
   return items.map(item => {
-    const quantity = item.quantity || 1
+    const quantity = item.quantity ?? 1
     return `• ${item.name.zh} x ${quantity}`
   }).join('\n')
 }
@@ -40,7 +40,7 @@ const formatItemsInEnglish = (items) => {
   }
 
   return items.map(item => {
-    const quantity = item.quantity || 1
+    const quantity = item.quantity ?? 1
     return `• ${item.name.en} x ${quantity}`
   }).join('\n')
 }
