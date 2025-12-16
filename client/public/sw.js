@@ -1,6 +1,6 @@
 // Service Worker for Stock Check Tool PWA
 // Version-based cache name - increment manually on each deployment
-const CACHE_VERSION = '5.8'  // UPDATE THIS ON EACH DEPLOYMENT!
+const CACHE_VERSION = '5.9'  // UPDATE THIS ON EACH DEPLOYMENT!
 const CACHE_NAME = `stock-check-v${CACHE_VERSION}`
 
 // Install event - activate immediately
